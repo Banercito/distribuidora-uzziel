@@ -13,51 +13,45 @@ const productos = [
   { nombre: "Chapas New 2 Golpes", precio: 20.00, imagen: "images/chapas_new.JPG", categoria: "Ferretería" },
   { nombre: "Check Cimval de Bronce 1/2", precio: 30.00, imagen: "images/check_cimval_bronce_2.JPG", categoria: "Ferretería" },
   { nombre: "Codos de Bronce Pesado", precio: 5.50, imagen: "images/codos_bronce.JPG", categoria: "Ferretería" },
-  
-  
-
 ];
 
 function mostrarProductos(lista) {
-  const contenedor = document.getElementById('productos');
-  contenedor.innerHTML = '';
+  const cont = document.getElementById('productos');
+  cont.innerHTML = '';
 
   if (lista.length === 0) {
-    contenedor.innerHTML = '<p style="grid-column:1/-1;text-align:center;">No se encontraron productos.</p>';
+    cont.innerHTML = '<p style="grid-column:1/-1;text-align:center;">No se encontraron productos.</p>';
     return;
   }
 
   lista.forEach(p => {
-    contenedor.innerHTML += `
+    cont.innerHTML += `
       <div class="card">
         <img src="${p.imagen}" alt="${p.nombre}">
         <h3>${p.nombre}</h3>
-        <p>Categoría: <strong>${p.categoria}</strong></p>
+        <p>Categoría: ${p.categoria}</p>
         <p>Precio: <span>S/ ${p.precio.toFixed(2)}</span></p>
-      </div>
-    `;
+      </div>`;
   });
 }
 
-function filtrarProductos() {
-  const texto = document.getElementById('buscar').value.toLowerCase();
-  const categoria = document.getElementById('categoria').value;
-
-  let filtrados = productos.filter(p => p.nombre.toLowerCase().includes(texto));
-  if (categoria !== 'todas') {
-    filtrados = filtrados.filter(p => p.categoria === categoria);
-  }
-
+function filtrarDesdeHeader() {
+  const texto = document.getElementById('buscarHeader').value.toLowerCase();
+  const filtrados = productos.filter(p => p.nombre.toLowerCase().includes(texto));
   mostrarProductos(filtrados);
 }
 
-// Mostrar todos al inicio
-mostrarProductos(productos);
+function filtrarCategoria(cat) {
+  if (cat === 'todas') return mostrarProductos(productos);
+  const filtrados = productos.filter(p => p.categoria === cat);
+  mostrarProductos(filtrados);
+}
 
-// ---------- Burbuja WhatsApp ----------
 (function(){
-  const waBubble = document.getElementById('whatsapp-bubble');
-  const phone = '51946380617'; 
+  const wa = document.getElementById('whatsapp-bubble');
+  const phone = '51946380617';
   const message = 'Hola%2C%20Distribuidora%20Uzziel%2C%20quisiera%20más%20información%20sobre%20sus%20productos.';
-  waBubble.href = `https://wa.me/${phone}?text=${message}`;
+  wa.href = `https://wa.me/${phone}?text=${message}`;
 })();
+
+mostrarProductos(productos);

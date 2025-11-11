@@ -3,24 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Distribuidora Uzziel | Ferretería</title>
+  <title>Distribuidora Uzziel | Catálogo</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-  <!-- Burbuja de WhatsApp -->
-  <a id="whatsapp-bubble" class="whatsapp-bubble" href="#" target="_blank" aria-label="Chatear por WhatsApp" rel="noopener">
+
+  <!-- Burbuja WhatsApp -->
+  <a id="whatsapp-bubble" class="whatsapp-bubble" href="#" target="_blank" rel="noopener" aria-label="WhatsApp">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="wa-icon">
       <path fill="#fff" d="M19.11 17.49c-.31-.16-1.84-.91-2.12-1.02-.29-.11-.5-.16-.71.15-.21.3-.81 1.02-.98 1.22-.18.2-.36.23-.66.08-.3-.15-1.32-.49-2.52-1.56-.93-.84-1.55-1.87-1.73-2.18-.18-.31-.02-.49.14-.64.15-.14.33-.36.5-.55.18-.19.23-.33.34-.55.11-.22 0-.4-.06-.56-.06-.16-.72-1.76-.99-2.41-.26-.63-.52-.54-.71-.55l-.61-.01c-.21 0-.57.07-.87.38-.3.31-1.15 1.13-1.15 2.76 0 1.62 1.18 3.2 1.34 3.41.16.21 2.32 3.52 5.63 4.94 3.31 1.42 3.31.95 3.92.9.6-.05 1.93-.77 2.2-1.52.27-.75.27-1.37.18-1.52-.09-.14-.3-.22-.63-.39z"/>
       <path fill="#fff" d="M16 3.2C8.92 3.2 3.2 8.92 3.2 16c0 2.07.55 4.05 1.6 5.8L3 29l7.42-1.95A12.74 12.74 0 0016 28.8c7.08 0 12.8-5.72 12.8-12.8S23.08 3.2 16 3.2zm0 22.4c-1.25 0-2.48-.2-3.6-.6l-.27-.09-4.66 1.22 1.22-4.51-.09-.27A9.78 9.78 0 016.2 16c0-5.4 4.4-9.8 9.8-9.8s9.8 4.4 9.8 9.8-4.4 9.8-9.8 9.8z"/>
     </svg>
   </a>
 
+  <!-- Header estilo Sodimac -->
   <header>
     <div class="logo-container">
-      <img src="images/ic_uzziel_logo_v2.jpg" alt="Logo Distribuidora Uzziel" class="logo">
+      <img src="images/ic_uzziel_logo_v3.jpg" alt="Distribuidora Uzziel" class="logo">
       <h1>Distribuidora Uzziel</h1>
     </div>
+
+    <div class="search-container">
+      <input type="text" id="buscarHeader" placeholder="Buscar en Distribuidora Uzziel..." onkeyup="filtrarDesdeHeader()">
+      <button class="btn-search" onclick="filtrarDesdeHeader()">
+        🔍
+      </button>
+    </div>
+
     <nav>
       <a href="#catalogo">Catálogo</a>
       <a href="#nosotros">Nosotros</a>
@@ -28,45 +37,42 @@
     </nav>
   </header>
 
-  <section class="hero">
+  <!-- Contenedor principal -->
+  <main class="contenedor">
     
-    
-  </section>
+    <!-- Sidebar de categorías -->
+    <aside class="sidebar">
+      <h3>Categorías</h3>
+      <ul>
+        <li onclick="filtrarCategoria('todas')">Todas</li>
+        <li onclick="filtrarCategoria('Electricidad')">Electricidad</li>
+        <li onclick="filtrarCategoria('Ferretería')">Ferretería</li>
+        <li onclick="filtrarCategoria('Construcción')">Construcción</li>
+        <li onclick="filtrarCategoria('Pintura')">Pintura</li>
+        <li onclick="filtrarCategoria('Grifería')">Grifería</li>
+      </ul>
+    </aside>
 
-  <section id="catalogo" class="catalogo">
-    <h2>Catálogo Virtual</h2>
-    <select id="categoria" onchange="filtrarProductos()">
-      <option value="todas">Todas las categorías</option>
-      <option value="Electricidad">Electricidad</option>
-      <option value="Ferretería">Ferretería</option>
-      <option value="Construcción">Construcción</option>
-      <option value="Pintura">Pintura</option>
-      <option value="Grifería">Grifería</option>
-    </select>
-
-    <input type="text" id="buscar" placeholder="Buscar producto..." onkeyup="filtrarProductos()">
-    <div id="productos" class="productos"></div>
-  </section>
+    <!-- Sección de productos -->
+    <section class="productos-section" id="catalogo">
+      <h2>Catálogo Virtual</h2>
+      <div id="productos" class="productos"></div>
+    </section>
+  </main>
 
   <section id="nosotros" class="nosotros">
     <h2>Sobre Nosotros</h2>
-    <p>
-      En <strong>Distribuidora Uzziel</strong> somos una ferretería familiar con más de 10 años
-      ofreciendo productos de calidad y asesoría personalizada. Nuestra misión es brindar
-      soluciones confiables para hogares, empresas y proyectos de construcción.
-    </p>
+    <p>En <strong>Distribuidora Uzziel</strong> ofrecemos soluciones ferreteras y materiales de calidad, garantizando confianza y atención personalizada para tus proyectos.</p>
   </section>
 
   <section id="contacto" class="contacto">
     <h2>Contáctanos</h2>
-    <p><strong>Dirección:</strong> Jr. Los Pinos 123 - Lima, Perú</p>
     <p><strong>Teléfono:</strong> +51 946 380 617</p>
-    <p><strong>Email:</strong> contacto@distribuidorauzziel.com</p>
-    <p><strong>Horario:</strong> Lunes a Sábado, 8:00am - 7:00pm</p>
+    <p><strong>Correo:</strong> contacto@distribuidorauzziel.com</p>
   </section>
 
   <footer>
-    <p>&copy; 2025 Distribuidora Uzziel. Todos los derechos reservados.</p>
+    <p>© 2025 Distribuidora Uzziel. Todos los derechos reservados.</p>
   </footer>
 
   <script src="script.js"></script>
