@@ -1,210 +1,135 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Lato', sans-serif;
+:root{
+  --purple:#6a1b9a;       /* color principal */
+  --purple-dark:#4f1274;
+  --price:#6a1b9a;
+  --muted:#6b6b6b;
+  --card-bg:#ffffff;
+  --shadow: 0 6px 18px rgba(20,20,20,0.06);
+  --radius:12px;
+  --gap:20px;
+  --max-width:1200px;
+  --container-padding:22px;
 }
 
-body {
-  background: #f5f5f5;
-  color: #333;
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family: "Lato", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background:#f5f6f8;color:#222;line-height:1.4}
+a{color:inherit;text-decoration:none}
+
+/* Header */
+.site-header{
+  background:var(--purple);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  gap:16px;
+  padding:14px var(--container-padding);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  flex-wrap:wrap;
+}
+.header-left{display:flex;align-items:center;gap:12px;min-width:220px}
+.logo{height:44px;border-radius:6px;object-fit:contain}
+.brand{font-weight:700;font-size:1.05rem;color:#fff}
+
+/* Search central */
+.search-wrap{
+  flex:1;
+  display:flex;
+  align-items:center;
+  max-width:640px;
+  background:#fff;border-radius:28px;padding:6px 8px;box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+.search-wrap input{
+  flex:1;border:0;padding:10px 14px;border-radius:24px;font-size:0.98rem;outline:none;color:#222;
+}
+.btn-search{
+  border:0;background:transparent;padding:10px 14px;font-size:1.1rem;cursor:pointer;
 }
 
-/* --- Header tipo Sodimac --- */
-header {
-  background: #003366;
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 30px;
-  flex-wrap: wrap;
-  gap: 20px;
+/* Top navigation */
+.top-nav{display:flex;gap:12px;align-items:center}
+.top-nav a{color:#fff;font-weight:600;font-size:0.95rem}
+
+/* Main layout */
+.main-layout{
+  max-width:var(--max-width);
+  margin:18px auto;
+  padding:0 var(--container-padding);
+  display:flex;
+  gap:var(--gap);
+  align-items:flex-start;
 }
 
-header .logo {
-  height: 50px;
-  border-radius: 8px;
-  margin-right: 10px;
+/* Sidebar */
+.sidebar{
+  width:230px;
+  background:var(--card-bg);
+  border-radius:10px;
+  padding:14px;
+  box-shadow:var(--shadow);
+  height:fit-content;
+  flex-shrink:0;
+}
+.sidebar h3{color:var(--purple);margin-bottom:8px;font-size:1rem}
+.cat-list{list-style:none}
+.cat-list li{padding:10px 8px;border-radius:8px;cursor:pointer;color:#222;font-weight:600}
+.cat-list li:hover{background:#f3e9fb}
+.cat-list li.active{background:#f3e9fb;color:var(--purple)}
+
+/* Catalog */
+.catalogo{
+  flex:1;
+  background:var(--card-bg);
+  border-radius:10px;padding:18px;box-shadow:var(--shadow);
+}
+.catalogo h2{color:var(--purple);margin-bottom:14px}
+
+/* Grid */
+.productos-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:16px;
 }
 
-.logo-container {
-  display: flex;
-  align-items: center;
+/* Card */
+.card{
+  background:var(--card-bg);
+  border-radius:10px;padding:14px;text-align:center;box-shadow:0 4px 12px rgba(10,10,10,0.03);
+  transition:transform .16s ease,box-shadow .16s ease;
+  display:flex;flex-direction:column;gap:10px;align-items:center;
 }
+.card:hover{transform:translateY(-6px);box-shadow:0 10px 30px rgba(10,10,10,0.08)}
+.card img{width:100%;height:150px;object-fit:contain;border-radius:8px;background:linear-gradient(180deg,#fafafa,#fff)}
+.card h3{font-size:1.02rem;margin-top:6px;color:#222}
+.card .cat{font-size:0.9rem;color:var(--muted)}
+.card .price{color:var(--price);font-weight:700;font-size:1.06rem;margin-top:auto}
 
-/* --- Barra de búsqueda estilo Sodimac --- */
-.search-container {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  max-width: 550px;
-  background: white;
-  border-radius: 25px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  overflow: hidden;
+/* Info & footer */
+.info-block{max-width:var(--max-width);margin:26px auto;padding:0 var(--container-padding);text-align:center}
+.site-footer{background:var(--purple);color:#fff;padding:14px;text-align:center;margin-top:22px;border-radius:8px;margin:0 var(--container-padding) 32px}
+
+/* WhatsApp bubble */
+.whatsapp-bubble{
+  position:fixed;right:20px;bottom:18px;width:64px;height:64px;border-radius:50%;
+  background:linear-gradient(135deg,#25D366,#128C7E);display:flex;align-items:center;justify-content:center;
+  box-shadow:0 10px 30px rgba(0,0,0,0.25);z-index:999;
 }
+.wa-icon{width:36px;height:36px}
 
-.search-container input {
-  flex: 1;
-  padding: 10px 15px;
-  border: none;
-  outline: none;
-  font-size: 1rem;
-  color: #333;
+/* Responsive behavior */
+@media (max-width:1000px){
+  .main-layout{padding:0 18px;gap:14px}
+  .sidebar{width:100%;order:1}
+  .catalogo{order:2}
 }
-
-.btn-search {
-  background: #ffcc00;
-  border: none;
-  cursor: pointer;
-  padding: 10px 20px;
-  font-size: 1.2rem;
-  border-left: 1px solid #ddd;
-  transition: 0.2s;
+@media (max-width:760px){
+  .site-header{padding:12px 16px}
+  .brand{font-size:1rem}
+  .search-wrap{width:100%;order:2}
+  .top-nav{order:3;width:100%;justify-content:center;gap:18px;margin-top:8px}
+  .main-layout{flex-direction:column;padding:0 12px}
+  .productos-grid{grid-template-columns:repeat(2,1fr)}
 }
-
-.btn-search:hover {
-  background: #f1b900;
-}
-
-/* --- Navegación --- */
-nav a {
-  color: white;
-  text-decoration: none;
-  margin: 0 10px;
-  font-weight: 600;
-}
-
-nav a:hover {
-  text-decoration: underline;
-}
-
-/* --- Layout --- */
-.contenedor {
-  display: flex;
-  padding: 30px;
-  gap: 20px;
-}
-
-/* --- Sidebar --- */
-.sidebar {
-  background: white;
-  width: 220px;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  height: fit-content;
-}
-
-.sidebar h3 {
-  color: #003366;
-  margin-bottom: 15px;
-  border-bottom: 2px solid #003366;
-  padding-bottom: 5px;
-}
-
-.sidebar ul {
-  list-style: none;
-}
-
-.sidebar li {
-  padding: 10px;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-.sidebar li:hover {
-  background-color: #e6f0ff;
-}
-
-/* --- Productos --- */
-.productos-section {
-  flex: 1;
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-.productos-section h2 {
-  margin-bottom: 20px;
-  color: #003366;
-}
-
-.productos {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-}
-
-.card {
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
-  text-align: center;
-  padding: 15px;
-}
-
-.card:hover {
-  transform: scale(1.03);
-}
-
-.card img {
-  width: 100%;
-  border-radius: 10px;
-}
-
-.card h3 {
-  color: #003366;
-  margin: 10px 0;
-}
-
-.card span {
-  color: #d32f2f;
-  font-weight: bold;
-  font-size: 1.1em;
-}
-
-/* --- Secciones extra --- */
-.nosotros, .contacto {
-  text-align: center;
-  padding: 50px 20px;
-}
-
-/* --- Footer --- */
-footer {
-  background: #003366;
-  color: white;
-  text-align: center;
-  padding: 15px;
-  margin-top: 30px;
-}
-
-/* --- Burbuja WhatsApp --- */
-.whatsapp-bubble {
-  position: fixed;
-  right: 25px;
-  bottom: 25px;
-  width: 70px;
-  height: 70px;
-  background: linear-gradient(135deg, #25D366, #128C7E);
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
-  animation: floatPulse 2.5s infinite ease-in-out;
-}
-
-@keyframes floatPulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.08); }
-}
-
-.wa-icon {
-  width: 40px;
-  height: 40px;
+@media (max-width:420px){
+  .productos-grid{grid-template-columns:1fr}
+  .card img{height:180px}
 }

@@ -1,3 +1,4 @@
+/* Productos (mantener datos que proporcionaste) */
 const productos = [
   { nombre: "Adaptadores", precio: 1.80, imagen: "images/adaptadores_1.JPG", categoria: "Electricidad" },
   { nombre: "Badilejo", precio: 6.90, imagen: "images/badilejo_1.JPG", categoria: "Construcción" },
@@ -15,43 +16,72 @@ const productos = [
   { nombre: "Codos de Bronce Pesado", precio: 5.50, imagen: "images/codos_bronce.JPG", categoria: "Ferretería" },
 ];
 
+/* Mostrar productos */
 function mostrarProductos(lista) {
   const cont = document.getElementById('productos');
   cont.innerHTML = '';
-
-  if (lista.length === 0) {
-    cont.innerHTML = '<p style="grid-column:1/-1;text-align:center;">No se encontraron productos.</p>';
+  if (!lista || lista.length === 0) {
+    cont.innerHTML = '<p style="text-align:center;padding:30px;color:#666">No se encontraron productos.</p>';
     return;
   }
 
   lista.forEach(p => {
-    cont.innerHTML += `
-      <div class="card">
-        <img src="${p.imagen}" alt="${p.nombre}">
-        <h3>${p.nombre}</h3>
-        <p>Categoría: ${p.categoria}</p>
-        <p>Precio: <span>S/ ${p.precio.toFixed(2)}</span></p>
-      </div>`;
+    const card = document.createElement('article');
+    card.className = 'card';
+    card.innerHTML = `
+      <img src="${p.imagen}" alt="${p.nombre}">
+      <h3>${p.nombre}</h3>
+      <div class="cat">${p.categoria}</div>
+      <div class="price">S/ ${p.precio.toFixed(2)}</div>
+    `;
+    cont.appendChild(card);
   });
 }
 
-function filtrarDesdeHeader() {
-  const texto = document.getElementById('buscarHeader').value.toLowerCase();
-  const filtrados = productos.filter(p => p.nombre.toLowerCase().includes(texto));
-  mostrarProductos(filtrados);
-}
-
+/* Filtrar por categoría (sidebar) */
 function filtrarCategoria(cat) {
-  if (cat === 'todas') return mostrarProductos(productos);
+  const items = document.querySelectorAll('.cat-list li');
+  items.forEach(li => li.classList.remove('active'));
+  const clicked = Array.from(items).find(li => li.dataset.cat === cat);
+  if (clicked) clicked.classList.add('active');
+
+  if (cat === 'todas') {
+    return mostrarProductos(productos);
+  }
   const filtrados = productos.filter(p => p.categoria === cat);
   mostrarProductos(filtrados);
 }
 
-(function(){
+/* Búsqueda desde header */
+function filtrarDesdeHeader() {
+  const q = document.getElementById('buscarHeader').value.trim().toLowerCase();
+  const filtrados = productos.filter(p => p.nombre.toLowerCase().includes(q) || p.categoria.toLowerCase().includes(q));
+  mostrarProductos(filtrados);
+}
+
+/* Eventos: click en categorias (delegation) */
+document.addEventListener('click', (e) => {
+  const li = e.target.closest('.cat-list li');
+  if (li) {
+    const cat = li.dataset.cat || li.textContent.trim();
+    filtrarCategoria(cat === '' ? 'todas' : cat);
+  }
+});
+
+/* Buscador botón */
+document.getElementById('btnSearch').addEventListener('click', filtrarDesdeHeader);
+/* Enter para buscar */
+document.getElementById('buscarHeader').addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') filtrarDesdeHeader();
+});
+
+/* WhatsApp link */
+(function initWhatsApp(){
   const wa = document.getElementById('whatsapp-bubble');
   const phone = '51946380617';
-  const message = 'Hola%2C%20Distribuidora%20Uzziel%2C%20quisiera%20más%20información%20sobre%20sus%20productos.';
+  const message = encodeURIComponent('Hola, Distribuidora Uzziel, quisiera más información sobre sus productos.');
   wa.href = `https://wa.me/${phone}?text=${message}`;
 })();
 
+/* Init: mostrar todos */
 mostrarProductos(productos);
