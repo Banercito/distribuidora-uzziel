@@ -1,4 +1,4 @@
-/* Productos proporcionados por el usuario (sin cambios) */
+/* === PRODUCTOS PRINCIPALES === */
 const productos = [
   { nombre: "Adaptadores", precio: 1.80, imagen: "images/adaptadores_1.JPG", categoria: "Electricidad" },
   { nombre: "Badilejo", precio: 6.90, imagen: "images/badilejo_1.JPG", categoria: "Construcción" },
@@ -13,79 +13,135 @@ const productos = [
   { nombre: "Chapa Perilla", precio: 25.00, imagen: "images/chapa_perilla.JPG", categoria: "Ferretería" },
   { nombre: "Chapas New 2 Golpes", precio: 20.00, imagen: "images/chapas_new.JPG", categoria: "Ferretería" },
   { nombre: "Check Cimval de Bronce 1/2", precio: 30.00, imagen: "images/check_cimval_bronce_2.JPG", categoria: "Ferretería" },
-  { nombre: "Codos de Bronce Pesado", precio: 5.50, imagen: "images/codos_bronce.JPG", categoria: "Ferretería" },
+  { nombre: "Codos de Bronce Pesado", precio: 5.50, imagen: "images/codos_bronce.JPG", categoria: "Ferretería" }
 ];
 
-/* Referencias */
-const contProductos = document.getElementById('productos');
-const buscarHeader = document.getElementById('buscarHeader');
-const categoryList = document.getElementById('categoryList');
-const productsCount = document.getElementById('productsCount');
+/* === ELEMENTOS DEL DOM === */
+const cont = document.getElementById('productos');
+const buscar = document.getElementById('buscarHeader');
+const tags = document.querySelectorAll('.tag');
 
-/* Mostrar productos en la grid */
-function mostrarProductos(lista) {
-  contProductos.innerHTML = '';
-  productsCount.textContent = `${lista.length} producto(s)`;
-
-  if (!lista || lista.length === 0) {
-    contProductos.innerHTML = '<p style="text-align:center;padding:28px;color:#666">No se encontraron productos.</p>';
+/* === MOSTRAR PRODUCTOS === */
+function mostrarProductos(list) {
+  cont.innerHTML = '';
+  if (!list || list.length === 0) {
+    cont.innerHTML = '<p style="text-align:center;padding:30px;color:#666">No se encontraron productos.</p>';
     return;
   }
-
-  lista.forEach(p => {
-    const div = document.createElement('div');
-    div.className = 'card';
-    div.innerHTML = `
-      <img src="${p.imagen}" alt="${p.nombre}">
+  list.forEach(p => {
+    const el = document.createElement('div');
+    el.className = 'card fade';
+    el.innerHTML = `
+      <img src="${p.imagen}" alt="${p.nombre}" loading="lazy">
+      <div class="brand">Por Distribuidora Uzziel</div>
       <h3>${p.nombre}</h3>
-      <div class="cat">${p.categoria}</div>
       <div class="price">S/ ${p.precio.toFixed(2)}</div>
     `;
-    contProductos.appendChild(div);
+    cont.appendChild(el);
   });
 }
 
-/* Filtrar por texto y categoría */
-function filtrarProductos() {
-  const texto = (buscarHeader.value || '').trim().toLowerCase();
-  const categoriaSeleccionada = document.querySelector('.category-list .active')?.dataset?.cat || 'todas';
+/* === FILTRAR POR CATEGORÍA O TEXTO === */
+function filtrar(category = 'todas') {
+  const q = (buscar.value || '').trim().toLowerCase();
+  const criterio = document.getElementById('orden')?.value || 'recomendados';
 
-  let filtrados = productos.filter(p =>
-    p.nombre.toLowerCase().includes(texto) ||
-    p.categoria.toLowerCase().includes(texto)
+  // Filtra por texto y categoría
+  let res = productos.filter(p =>
+    p.nombre.toLowerCase().includes(q) ||
+    p.categoria.toLowerCase().includes(q)
   );
-
-  if (categoriaSeleccionada && categoriaSeleccionada !== 'todas') {
-    filtrados = filtrados.filter(p => p.categoria === categoriaSeleccionada);
+  if (category && category !== 'todas') {
+    res = res.filter(r => r.categoria === category);
   }
 
-  mostrarProductos(filtrados);
+  // Ordena según el criterio seleccionado
+  if (criterio === 'menor') {
+    res.sort((a, b) => a.precio - b.precio);
+  } else if (criterio === 'mayor') {
+    res.sort((a, b) => b.precio - a.precio);
+  }
+
+  mostrarProductos(res);
 }
 
-/* Manejo de categorías (delegation) */
-categoryList.addEventListener('click', (e) => {
-  const li = e.target.closest('li');
-  if (!li) return;
-  // toggle active
-  document.querySelectorAll('.category-list .cat').forEach(n => n.classList.remove('active'));
-  li.classList.add('active');
-  filtrarProductos();
+/* === ORDENAR PRODUCTOS === */
+function ordenarProductos() {
+  const select = document.getElementById('orden');
+  select.style.color = '#6a1b9a';
+  select.style.fontWeight = 'bold';
+
+  // Mantiene la categoría activa al ordenar
+  const categoriaActiva = document.querySelector('.tag.active')?.dataset?.cat || 'todas';
+  filtrar(categoriaActiva);
+}
+
+/* === EVENTOS DE FILTRO POR CATEGORÍA === */
+tags.forEach(t => {
+  t.addEventListener('click', () => {
+    document.querySelectorAll('.tag').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    const cat = t.dataset.cat || 'todas';
+    filtrar(cat);
+  });
 });
 
-/* Búsqueda: tecla Enter y botón */
-document.getElementById('btnSearch')?.addEventListener('click', filtrarProductos);
-buscarHeader?.addEventListener('keyup', (e) => {
-  if (e.key === 'Enter') filtrarProductos();
-  else filtrarProductos(); // busca en tiempo real
+/* === BUSCADOR EN TIEMPO REAL === */
+buscar.addEventListener('input', () => filtrar(document.querySelector('.tag.active')?.dataset?.cat || 'todas'));
+
+/* === INICIO === */
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelector('.tag[data-cat="todas"]')?.classList.add('active');
+  mostrarProductos(productos);
 });
 
-/* Inicializar */
-mostrarProductos(productos);
-
-/* WhatsApp bubble link */
+/* === BURBUJA DE WHATSAPP === */
 (function(){
-  const waBubble = document.getElementById('whatsapp-bubble');
+  const wa = document.getElementById('whatsapp-bubble');
   const phone = '51946380617';
-  const message = encodeURIComponent('Hola, Distribuidora Uzziel, quisiera más información sobre sus productos.');
-  waBubble.href = `https://wa.me/${phone}?text=${message}`;
+  const msg = encodeURIComponent('Hola, Distribuidora Uzziel, quisiera más información sobre sus productos.');
+  wa.href = `https://wa.me/${phone}?text=${msg}`;
 })();
+
+/* === CARRUSEL DE PRODUCTOS POPULARES === */
+const populares = [
+  { nombre: "Bisagras Capuchinas", precio: 22.00, imagen: "images/bisagras_capuchinas.JPG" },
+  { nombre: "Cable Indeco N° 14", precio: 80.00, imagen: "images/cable_indeco_1.JPG" },
+  { nombre: "Candado Tigón N°40", precio: 5.50, imagen: "images/candados_tigon.JPG" },
+  { nombre: "Codo Bronce Pesado", precio: 5.50, imagen: "images/codos_bronce.JPG" },
+  { nombre: "Chapa Perilla", precio: 25.00, imagen: "images/chapa_perilla.JPG" },
+  { nombre: "Caño Doble Lavadero", precio: 20.00, imagen: "images/cano_doble_lavadero.JPG" }
+];
+
+const carrusel = document.getElementById("carrusel");
+
+// Mostrar slides del carrusel
+populares.forEach(p => {
+  carrusel.innerHTML += `
+    <div class="slide">
+      <img src="${p.imagen}" alt="${p.nombre}">
+      <h3>${p.nombre}</h3>
+      <span>S/ ${p.precio.toFixed(2)}</span>
+      <a href="#">Ver producto</a>
+    </div>
+  `;
+});
+
+// Movimiento automático
+let index = 0;
+function moverCarrusel() {
+  index++;
+  if (index > populares.length - 4) index = 0;
+  carrusel.style.transform = `translateX(-${index * 25}%)`;
+}
+setInterval(moverCarrusel, 3000);
+
+// Botones manuales
+document.querySelector(".prev").onclick = () => {
+  index = index === 0 ? populares.length - 4 : index - 1;
+  carrusel.style.transform = `translateX(-${index * 25}%)`;
+};
+document.querySelector(".next").onclick = () => {
+  index = index >= populares.length - 4 ? 0 : index + 1;
+  carrusel.style.transform = `translateX(-${index * 25}%)`;
+};
