@@ -145,3 +145,6 @@ document.querySelector(".next").onclick = () => {
   index = index >= populares.length - 4 ? 0 : index + 1;
   carrusel.style.transform = `translateX(-${index * 25}%)`;
 };
+
+// Obtener año actual para el footer
+document.getElementById("year").innerHTML = new Date().getFullYear();
