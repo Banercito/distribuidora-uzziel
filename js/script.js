@@ -5,12 +5,12 @@ const productos = [
   { nombre: "Bisagras Capuchinas", precio: 22.00, imagen: "images/bisagras_capuchinas.jpg", categoria: "Ferretería" },
   { nombre: "Bisagras Fijas", precio: 36.00, imagen: "images/bisagras_fijas.jpg", categoria: "Ferretería" },
   { nombre: "Brocha N° 1", precio: 1.00, imagen: "images/brochas_1.jpg", categoria: "Pintura" },
-  { nombre: "Cable Indeco N° 14", precio: 80.00, imagen: "images/cable_indeco_1.jpg", categoria: "Electricidad" },
+  { nombre: "Cable Indeco N° 14", precio: 80.00, imagen: "images/cable_indeco_n14.jpg", categoria: "Electricidad" },
   { nombre: "Candados Porte", precio: 6.90, imagen: "images/candados_porte.jpg", categoria: "Ferretería" },
-  { nombre: "Candados Tigón N°40", precio: 5.50, imagen: "images/candados_tigon.jpg", categoria: "Ferretería" },
+  { nombre: "Candados Tigón N°40", precio: 5.50, imagen: "images/candados_tigon_n40.jpg", categoria: "Ferretería" },
   { nombre: "Caño Doble Lavadero", precio: 20.00, imagen: "images/cano_doble_lavadero.jpg", categoria: "Grifería" },
   { nombre: "Cera Con Guía", precio: 4.50, imagen: "images/cera_con_guia.jpg", categoria: "Ferretería" },
-  { nombre: "Chapa Perilla", precio: 25.00, imagen: "images/chapa_perilla.jpg", categoria: "Ferretería" },
+  { nombre: "Chapa Perilla", precio: 25.00, imagen: "images/chapa-forte.jpg", categoria: "Ferretería" },
   { nombre: "Chapas New 2 Golpes", precio: 20.00, imagen: "images/chapas_new.jpg", categoria: "Ferretería" },
   { nombre: "Check Cimval de Bronce 1/2", precio: 30.00, imagen: "images/check_cimval_bronce_2.jpg", categoria: "Ferretería" },
   { nombre: "Codos de Bronce Pesado", precio: 5.50, imagen: "images/codos_bronce.jpg", categoria: "Ferretería" }
@@ -106,10 +106,10 @@ document.addEventListener('DOMContentLoaded', () => {
 /* === CARRUSEL DE PRODUCTOS POPULARES === */
 const populares = [
   { nombre: "Bisagras Capuchinas", precio: 22.00, imagen: "images/bisagras_capuchinas.jpg" },
-  { nombre: "Cable Indeco N° 14", precio: 80.00, imagen: "images/cable_indeco_1.jpg" },
-  { nombre: "Candado Tigón N°40", precio: 5.50, imagen: "images/candados_tigon.jpg" },
+  { nombre: "Cable Indeco N° 14", precio: 80.00, imagen: "images/cable_indeco_n14.jpg" },
+  { nombre: "Candado Tigón N°40", precio: 5.50, imagen: "images/candados_tigon_n40.jpg" },
   { nombre: "Codo Bronce Pesado", precio: 5.50, imagen: "images/codos_bronce.jpg" },
-  { nombre: "Chapa Perilla", precio: 25.00, imagen: "images/chapa_perilla.jpg" },
+  { nombre: "Chapa Perilla", precio: 25.00, imagen: "images/chapa-forte.jpg" },
   { nombre: "Caño Doble Lavadero", precio: 20.00, imagen: "images/cano_doble_lavadero.jpg" }
 ];
 
