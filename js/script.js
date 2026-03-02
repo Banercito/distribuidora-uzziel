@@ -286,7 +286,7 @@ populares.forEach(p => {
       <img src="${p.imagen}" alt="${p.nombre}">
       <h3>${p.nombre}</h3>
       <span>S/ ${p.precio.toFixed(2)}</span>
-      <a href="#">Ver producto</a>
+      <a href="https://wa.me/51946380617" target="_blank">Hacer mi pedido</a>
     </div>
   `;
 });
