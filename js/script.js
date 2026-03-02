@@ -292,20 +292,36 @@ populares.forEach(p => {
 });
 
 let index = 0;
+
+function getSlidesConfig() {
+  const w = window.innerWidth;
+  if (w <= 600) return { visibles: 1, pct: 88 };
+  if (w <= 900) return { visibles: 2, pct: 50 };
+  return { visibles: 4, pct: 25 };
+}
+
+function moverA(i) {
+  const { visibles, pct } = getSlidesConfig();
+  const maxIndex = populares.length - visibles;
+  index = Math.max(0, Math.min(i, maxIndex));
+  carrusel.style.transform = `translateX(-${index * pct}%)`;
+}
+
 function moverCarrusel() {
-  index++;
-  if (index > populares.length - 4) index = 0;
-  carrusel.style.transform = `translateX(-${index * 25}%)`;
+  const { visibles } = getSlidesConfig();
+  moverA(index >= populares.length - visibles ? 0 : index + 1);
 }
 setInterval(moverCarrusel, 3000);
 
 document.querySelector(".prev").onclick = () => {
-  index = index === 0 ? populares.length - 4 : index - 1;
-  carrusel.style.transform = `translateX(-${index * 25}%)`;
+  const { visibles } = getSlidesConfig();
+  moverA(index <= 0 ? populares.length - visibles : index - 1);
 };
 document.querySelector(".next").onclick = () => {
-  index = index >= populares.length - 4 ? 0 : index + 1;
-  carrusel.style.transform = `translateX(-${index * 25}%)`;
+  const { visibles } = getSlidesConfig();
+  moverA(index >= populares.length - visibles ? 0 : index + 1);
 };
+
+window.addEventListener("resize", () => moverA(0));
 
 document.getElementById("year").innerHTML = new Date().getFullYear();
