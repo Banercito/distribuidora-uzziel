@@ -5,12 +5,10 @@ const productos = [
   { nombre: "Bisagras Capuchinas", precio: 22.00, imagen: "images/bisagras_capuchinas.jpg", categoria: "Ferretería", marca: "Comet" },
   { nombre: "Bisagras Fijas", precio: 36.00, imagen: "images/bisagras_fijas.jpg", categoria: "Ferretería", marca: "Sigma" },
   { nombre: "Brocha N° 1", precio: 1.00, imagen: "images/brochas_1.jpg", categoria: "Pintura", marca: "Genérico" },
-  { nombre: "Cable Indeco N° 14", precio: 80.00, imagen: "images/cable_indeco_n14.jpg", categoria: "Electricidad", marca: "Indeco" },
   { nombre: "Candados Porte", precio: 6.90, imagen: "images/candados_porte.jpg", categoria: "Ferretería", marca: "Porte" },
   { nombre: "Candados Tigón N°40", precio: 5.50, imagen: "images/candados_tigon_n40.jpg", categoria: "Ferretería", marca: "Tigón" },
   { nombre: "Caño Doble Lavadero", precio: 20.00, imagen: "images/cano_doble_lavadero.jpg", categoria: "Grifería", marca: "Genérico" },
   { nombre: "Cera Con Guía", precio: 4.50, imagen: "images/cera_con_guia.jpg", categoria: "Ferretería", marca: "Magnum" },
-  { nombre: "Chapa Perilla", precio: 25.00, imagen: "images/chapa-forte.jpg", categoria: "Ferretería", marca: "Forte" },
   { nombre: "Chapas New 2 Golpes", precio: 20.00, imagen: "images/chapas_new.jpg", categoria: "Ferretería", marca: "New" },
   { nombre: "Check Cimval de Bronce 1/2", precio: 30.00, imagen: "images/check_cimval_bronce_2.jpg", categoria: "Ferretería", marca: "Cimval" },
   { nombre: "Codos de Bronce Pesado", precio: 5.50, imagen: "images/codos_bronce.jpg", categoria: "Ferretería", marca: "Genérico" }
@@ -112,10 +110,10 @@ function filtrar(category = 'todas') {
 
   let res = q
     ? productos.filter(p =>
-        p.nombre.toLowerCase().includes(q) ||
-        p.categoria.toLowerCase().includes(q) ||
-        p.marca.toLowerCase().includes(q)
-      )
+      p.nombre.toLowerCase().includes(q) ||
+      p.categoria.toLowerCase().includes(q) ||
+      p.marca.toLowerCase().includes(q)
+    )
     : [...productos];
 
   if (category && category !== 'todas') {
@@ -272,10 +270,10 @@ document.addEventListener('DOMContentLoaded', () => {
 /* === CARRUSEL === */
 const populares = [
   { nombre: "Bisagras Capuchinas", precio: 22.00, imagen: "images/bisagras_capuchinas.jpg" },
-  { nombre: "Cable Indeco N° 14", precio: 80.00, imagen: "images/cable_indeco_n14.jpg" },
+  { nombre: "Candados Porte", precio: 6.90, imagen: "images/candados_porte.jpg", categoria: "Ferretería", marca: "Porte" },
+  { nombre: "Chapas New 2 Golpes", precio: 20.00, imagen: "images/chapas_new.jpg", categoria: "Ferretería", marca: "New" },
   { nombre: "Candado Tigón N°40", precio: 5.50, imagen: "images/candados_tigon_n40.jpg" },
   { nombre: "Codo Bronce Pesado", precio: 5.50, imagen: "images/codos_bronce.jpg" },
-  { nombre: "Chapa Perilla", precio: 25.00, imagen: "images/chapa-forte.jpg" },
   { nombre: "Caño Doble Lavadero", precio: 20.00, imagen: "images/cano_doble_lavadero.jpg" }
 ];
 
